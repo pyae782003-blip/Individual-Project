@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotels - Travel Services</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f7fb;
+      color: #333;
+    }
+    header {
+      background: #004080;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      background: #0066cc;
+      padding: 0.75rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    form {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    input, button {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      background: #0066cc;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #004080;
+    }
+    .hotel-card {
+      background: #f9f9f9;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 0.75rem 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .hotel-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: #004080;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #004080;
+      color: white;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Find Hotels</h1>
+    <p>Search for the best hotels at your destination</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="booking.html">Booking</a>
+    <a href="car-rental.html">Car Rental</a>
+  </nav>
+
+  <main>
+    <h2>Hotel Search</h2>
+    <form id="hotelForm">
+      <input type="text" id="cityInput" placeholder="Enter city (e.g. Bangkok)" required>
+      <button type="submit">Search</button>
+    </form>
+
+    <div id="hotelResults"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Travel Services. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Example hotel data
+    const hotels = {
+      bangkok: [
+        { name: "Grand Palace Hotel", price: "$120/night", rating: "4.5★" },
+        { name: "Chao Phraya Riverside Inn", price: "$90/night", rating: "4.2★" }
+      ],
+      chiangmai: [
+        { name: "Northern Paradise Hotel", price: "$80/night", rating: "4.3★" },
+        { name: "Old City Boutique", price: "$70/night", rating: "4.1★" }
+      ],
+      phuket: [
+        { name: "Beachside Resort", price: "$150/night", rating: "4.6★" },
+        { name: "Island View Hotel", price: "$110/night", rating: "4.4★" }
+      ]
+    };
+
+    const form = document.getElementById("hotelForm");
+    const resultsDiv = document.getElementById("hotelResults");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const city = document.getElementById("cityInput").value.trim().toLowerCase();
+      resultsDiv.innerHTML = ""; // clear old results
+
+      if (hotels[city]) {
+        hotels[city].forEach(hotel => {
+          const card = document.createElement("div");
+          card.className = "hotel-card";
+          card.innerHTML = `
+            <h3>${hotel.name}</h3>
+            <p><strong>Price:</strong> ${hotel.price}</p>
+            <p><strong>Rating:</strong> ${hotel.rating}</p>
+          `;
+          resultsDiv.appendChild(card);
+        });
+      } else {
+        resultsDiv.innerHTML = `<p>No hotels found for "${city}". Try Bangkok, Chiang Mai, or Phuket.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
