@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Rental - Travel Services</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f7fb;
+      color: #333;
+    }
+    header {
+      background: #004080;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      background: #0066cc;
+      padding: 0.75rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    form {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    input, button {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      background: #0066cc;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #004080;
+    }
+    .car-card {
+      background: #f9f9f9;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 0.75rem 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .car-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: #004080;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #004080;
+      color: white;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Car Rental</h1>
+    <p>Find the best rental cars at your destination</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="booking.html">Booking</a>
+    <a href="hotel.html">Hotels</a>
+  </nav>
+
+  <main>
+    <h2>Search Rental Cars</h2>
+    <form id="carForm">
+      <input type="text" id="carCityInput" placeholder="Enter city (e.g. bangkok)" required>
+      <button type="submit">Search</button>
+    </form>
+
+    <div id="carResults"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Travel Services. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Car rental data with color, type, and price
+    const cars = {
+      bangkok: [
+        { name: "Toyota Corolla", color: "White", type: "Sedan", price: "$40/day" },
+        { name: "Honda CR-V", color: "Black", type: "SUV", price: "$65/day" }
+      ],
+      chiangmai: [
+        { name: "Mazda 2", color: "Red", type: "Compact", price: "$35/day" },
+        { name: "Toyota Hilux", color: "Silver", type: "Pickup", price: "$70/day" }
+      ],
+      phuket: [
+        { name: "Nissan Almera", color: "Blue", type: "Economy", price: "$38/day" },
+        { name: "Mitsubishi Pajero", color: "Gray", type: "SUV", price: "$85/day" }
+      ]
+    };
+
+    const carForm = document.getElementById("carForm");
+    const carResultsDiv = document.getElementById("carResults");
+
+    carForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const city = document.getElementById("carCityInput").value.trim().toLowerCase();
+      carResultsDiv.innerHTML = ""; // clear old results
+
+      if (cars[city]) {
+        cars[city].forEach(car => {
+          const card = document.createElement("div");
+          card.className = "car-card";
+          card.innerHTML = `
+            <h3>${car.name}</h3>
+            <p><strong>Color:</strong> ${car.color}</p>
+            <p><strong>Type:</strong> ${car.type}</p>
+            <p><strong>Price:</strong> ${car.price}</p>
+          `;
+          carResultsDiv.appendChild(card);
+        });
+      } else {
+        carResultsDiv.innerHTML = `<p>No rental cars found for "${city}". Try Bangkok, Chiang Mai, or Phuket.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
